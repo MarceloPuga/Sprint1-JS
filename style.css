@@ -1,0 +1,16 @@
+    
+body{
+
+    display: flex;
+    flex-direction: column;
+    
+   
+}
+.zoom-effect {
+    transition: transform 0.2s;
+  }
+
+  .zoom-effect:hover {
+    transform: scale(1.1);
+  }
+
