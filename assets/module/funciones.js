@@ -27,7 +27,7 @@ export function imprimirTemplate(listaGeneros, contenedor, fn) {
     contenedor.innerHTML = template
 }
 export function filtrarTitulos(listado, titulos) {
-    const filtro = listado.filter(movie => movie.title.includes(titulos.toLowerCase()))
+    const filtro = listado.filter(movie => movie.title.toLowerCase().startsWith(titulos.toLowerCase()))
     return filtro
 }
 export function filtroPorGenero(listadoDePeliculas, generoSeleccionado){
