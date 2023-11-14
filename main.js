@@ -1,36 +1,36 @@
+import {crearTemplate, createCard, createSelector, imprimirTemplate, filtroPorGenero, filtrarTitulos} from './assets/module/funciones.js'
+
 
 const articuloContenedor = document.getElementById(`artContenedor`)
 
-articuloContenedor.innerHTML += crearTemplate(movies.data)
+ articuloContenedor.innerHTML += crearTemplate(movies)
 
-function crearTemplate(){
-let template = ""
-for(const movie of movies)
-template += createCard(movie)
+const selector = document.getElementById("selector")
+const finder = document.getElementById("finder")
 
-return template
-}
+let generos = movies.map(movie => (movie.genres)).flat()
 
-function createCard(movie){
+let listaDeGeneros = new Set(generos)
 
-    return  `<article class="items-start border-[3px] border-black  hover:border-blue-400 h-[260px] w-[170px] rounded-xl text-xs gap-3">
-    <img class="h-[120px] w-[100%] object-cover p-3 " src="${movie.image}" alt="">
-    <h2 class="font-bold text-left text-[10px]">${movie.title}</h2>
-    <h3 class=" text-left text-[10px]">${movie.tagline}</h3>
-    <p class="text-left text-[10px] line-clamp-5 "> Description: ${movie.overview}</p>
+imprimirTemplate(listaDeGeneros, selector, createSelector)
+
+finder.addEventListener("input", () => {
     
-    </article> `
-}
+    const filtradoPorNombre = filtrarTitulos(movies,finder.value)
+    
+    imprimirTemplate(filtradoPorNombre, articuloContenedor, createCard)
+})
+
+
+selector.addEventListener("input", () => {
+
+const optSelection = selector.value
+
+const filtradoPorGen = filtroPorGenero(movies,optSelection)
+
+imprimirTemplate(filtradoPorGen, articuloContenedor, createCard)
+
+})
 
 
 
-
-
-/* 
-<article class="flex flex-col items-start border-2 border-black h-[220px] w-[170px] rounded-xl " id ="articleContenedor">
-            <img class="h-[120px] w-[100%] object-cover p-3" src="https://moviestack.onrender.com/static/y5szbv8zju.jpg" alt="">
-            <h2>title</h2>
-            <h3>Tagline</h3>
-            <h4>description</h4>
-
-        </article> */
