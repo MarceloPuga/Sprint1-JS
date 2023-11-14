@@ -13,7 +13,6 @@ let generos = movies.map(movie => (movie.genres)).flat()
 let listaDeGeneros = new Set(generos)
 
 
-
 imprimirTemplate(listaDeGeneros, selector, createSelector)
 
 finder.addEventListener("input", () => {
