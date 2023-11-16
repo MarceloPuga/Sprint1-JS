@@ -1,3 +1,18 @@
+const url = `https://moviestack.onrender.com/api/movies`
+const apiKey = `0ff70d54-dc0b-4262-9c3d-776cb0f34dbd`
+
+const options = {
+    headers: {
+        'X-API-KEY': apiKey
+    }
+}
+fetch(url, options)
+.then(Response => Response.json()) 
+.then(data => console.log(data))
+
+.catch(error => console.log(error))
+
+
 export function crearTemplate(listaMovies) {
     let template = ""
     for (const movie of listaMovies)
@@ -6,9 +21,10 @@ export function crearTemplate(listaMovies) {
 return template
 }
 export function createCard(movie) {
+const imageUrl = `https://moviestack.onrender.com/static/${movie.image}`
 
     return `<article class="items-start border-[3px] border-black  hover:border-blue-400 h-[300px] w-[170px] rounded-xl text-xs gap-3">
-    <img class="h-[120px] w-[100%] object-cover p-3 " src="${movie.image}" alt="">
+    <img class="h-[120px] w-[100%] object-cover p-3 " src="${imageUrl}" alt="">
     <h2 class="font-bold text-left text-[10px]">${movie.title}</h2>
     <h3 class=" text-left text-[10px]">${movie.tagline}</h3>
     <p class="text-left text-[10px] line-clamp-5 "> Description: ${movie.overview}</p>
