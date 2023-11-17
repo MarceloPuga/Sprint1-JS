@@ -1,10 +1,5 @@
-export function crearTemplate(listaMovies) {
-    let template = ""
-    for (const movie of listaMovies)
-    template += createCard(movie)
 
-return template
-}
+/* creo la carta */
 export function createCard(movie) {
 
     return `<article class="items-start border-[3px] border-black  hover:border-blue-400 h-[300px] w-[170px] rounded-xl text-xs gap-3">
@@ -16,9 +11,22 @@ export function createCard(movie) {
     </article> `
 }
 
+/* itero las cartas */
+export function crearTemplate(listaMovies) {
+    let template = ""
+    for (const movie of listaMovies)
+    template += createCard(movie)
+
+return template
+}
+
+
+/* creo el selector de los generos de peliculas */
 export function createSelector(generosFiltrados) {
     return `<option value="${generosFiltrados}">${generosFiltrados}</option>`
 }
+
+/* funcion para imprimir cartas en el contenedor en base al selector */
 export function imprimirTemplate(listaGeneros, contenedor, fn) {
     let template = ""
     for (const generoIterado of listaGeneros) {
@@ -26,13 +34,35 @@ export function imprimirTemplate(listaGeneros, contenedor, fn) {
     }
     contenedor.innerHTML = template
 }
+/* filtro peliculas por titulo */
 export function filtrarTitulos(listado, titulos) {
-    const filtro = listado.filter(movie => movie.title.toLowerCase().startsWith(titulos.toLowerCase()))
+    const filtro = listado.filter(movie => movie.title.toLowerCase().includes(titulos.toLowerCase()))
     return filtro
 }
+/* filtro peliculas por genero */
 export function filtroPorGenero(listadoDePeliculas, generoSeleccionado){
 
     const filtroDeGenero = listadoDePeliculas.filter(movie => movie.genres.includes(generoSeleccionado))
 
 return filtroDeGenero
+}
+/* cruzo filtros por genero y por nombre */
+export function  cruzarFiltro(listaPeliculas, selector, finder, contenedor ){
+const seleccionarGenero = selector.value
+const seleccionarNombre = finder.value
+
+const resultadoGenero = seleccionarGenero !== "" ? filtroPorGenero(listaPeliculas, seleccionarGenero) : listaPeliculas
+const resultadoNombre = seleccionarNombre !== "" ? filtrarTitulos(listaPeliculas, seleccionarNombre) : listaPeliculas
+const resultadoFinal = resultadoGenero.filter(movie => resultadoNombre.includes(movie))
+
+limpiarContenedor(contenedor)
+
+if(resultadoFinal.length > 0) {
+imprimirTemplate(resultadoFinal, contenedor, createCard)
+}else{
+    contenedor.innerHTML = "No se encontraron resultados"
+}}
+/* limpio contenedor articulocontenedor */
+function limpiarContenedor(contenedor) {
+    contenedor.innerHTML = ""
 }

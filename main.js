@@ -1,6 +1,6 @@
-import {crearTemplate, createCard, createSelector, imprimirTemplate, filtroPorGenero, filtrarTitulos} from './assets/module/funciones.js'
+import {crearTemplate, createSelector, imprimirTemplate,cruzarFiltro} from './assets/module/funciones.js'
 
-
+/* capturo los identificadores de HTML */
 const selector = document.getElementById("selector")
 const finder = document.getElementById("finder")
 
@@ -10,27 +10,21 @@ let listaDeGeneros = new Set(generos)
 const articuloContenedor = document.getElementById(`artContenedor`)
 articuloContenedor.innerHTML += crearTemplate(movies)
 
-
+/* imprimo la lista de peliculas en el selector */
 imprimirTemplate(listaDeGeneros, selector, createSelector)
 
-
+/* evento de busqueda por texto */
 finder.addEventListener("input", () => {
+    cruzarFiltro(movies, selector, finder, articuloContenedor)
     
-    const filtradoPorNombre = filtrarTitulos(movies,finder.value)
-    
-    imprimirTemplate(filtradoPorNombre, articuloContenedor, createCard)
 })
 
-selector.addEventListener("input", () => {
-
-const optSelection = selector.value
-
-const filtradoPorGen = filtroPorGenero(movies,optSelection)
-const filtradoFinal = filtrarTitulos(filtradoPorGen,finder.value)
-
-imprimirTemplate(filtradoFinal, articuloContenedor, createCard)
-
+/* evento de busqueda por selector */
+selector.addEventListener("change", () => {
+    cruzarFiltro(movies, selector, finder, articuloContenedor)
 })
+
+
 
 
 
