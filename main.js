@@ -8,28 +8,24 @@ const options = {
         'X-API-KEY': apiKey
     }
 }
-fetch(url, options)
-.then(Response => Response.json()) 
-.then(data => {
-  const movies = data.movies
-  createCard(movies)
-  crearTemplate(movies)
-  createSelector(movies)
-  imprimirTemplate(listaDeGeneros, selector, createSelector)
-})
-.catch(error => console.log(error))
-
-const articuloContenedor = document.getElementById(`artContenedor`)
-
- articuloContenedor.innerHTML += crearTemplate(movies)
-
 const selector = document.getElementById("selector")
 const finder = document.getElementById("finder")
+const articuloContenedor = document.getElementById(`artContenedor`)
+let movies 
 
-let generos = movies.map(movie => (movie.genres)).flat()
-let listaDeGeneros = new Set(generos)
 
-imprimirTemplate(listaDeGeneros, selector, createSelector)
+fetch(url, options)
+.then(Response => Response.json()) 
+.then(data => { 
+    movies = data.movies
+    let generos = movies.map(movie => (movie.genres)).flat()
+    let listaDeGeneros = new Set(generos)
+    imprimirTemplate(listaDeGeneros, selector, createSelector)
+    articuloContenedor.innerHTML += crearTemplate(movies)
+})
+
+.catch(error => console.error(error))
+
 
 finder.addEventListener("input", () => {
     
@@ -37,7 +33,6 @@ finder.addEventListener("input", () => {
     
     imprimirTemplate(filtradoPorNombre, articuloContenedor, createCard)
 })
-
 
 selector.addEventListener("input", () => {
 

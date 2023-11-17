@@ -8,7 +8,6 @@ const options = {
 }
 fetch(url, options)
 .then(Response => Response.json()) 
-.then(data => console.log(data))
 
 .catch(error => console.log(error))
 
