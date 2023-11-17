@@ -34,7 +34,7 @@ finder.addEventListener("input", () => {
     imprimirTemplate(filtradoPorNombre, articuloContenedor, createCard)
 })
 
-selector.addEventListener("input", () => {
+selector.addEventListener("change", () => {
 
 const optSelection = selector.value
 
