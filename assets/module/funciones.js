@@ -1,17 +1,19 @@
 
 /* creo la carta */
+
 export function createCard(movie) {
-
-    return `<article class="flex flex-col items-center border-[3px] border-black  hover:border-blue-400 h-[300px] w-[170px] rounded-xl text-xs ">
-    <img class="h-[120px] w-[100%] object-cover p-3" src="https://moviestack.onrender.com/static/${movie.image}" alt="">
-    <h2 class="font-bold text-left text-[10px]">${movie.title}</h2>
-    <h3 class=" text-left text-[10px]">${movie.tagline}</h3>
-    <p class="text-left text-[10px] line-clamp-5 "> Description: ${movie.overview}</p>
-    <a href="/assets/pages/details.html?id=${movie.id}" class="bg-black text-white  rounded-md text-[10px] m-[5px] w-[100px]">ir a detalles</a>
-    <button class="rounded-md  border-[1px] border-black w-[100px] favBtn" type="submit" onclick= "agregarFavoritos" id= "favBtn" >favorites</button>
-    </article> `
+    
+       return `<article class="flex flex-col items-center border-[3px] border-black  hover:border-blue-400 h-[300px] w-[170px] rounded-xl text-xs favContenedor ">
+       <img class="h-[120px] w-[100%] object-cover p-3" src="https://moviestack.onrender.com/static/${movie.image}" alt="">
+       <h2 class="font-bold text-left text-[10px]">${movie.title}</h2>
+       <h3 class=" text-left text-[10px]">${movie.tagline}</h3>
+       <p class="text-left text-[10px] line-clamp-5 "> Description: ${movie.overview}</p>
+       <a href="/assets/pages/details.html?id=${movie.id}" class="bg-black text-white  rounded-md text-[10px] m-[5px] w-[100px]">ir a detalles</a>
+       <button id="botonFavorito" data-id="${movie.id}">Favoritos</button>
+       </article> `
+ 
 }
-
+ 
 /* itero las cartas */
 export function crearTemplate(listaMovies) {
     let template = ""
