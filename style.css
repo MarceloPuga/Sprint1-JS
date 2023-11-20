@@ -18,3 +18,9 @@ tr,td{
 
   border: 2px solid black;
 }
+
+.favBtn:active{
+background-color: red;
+color: white;
+}
+

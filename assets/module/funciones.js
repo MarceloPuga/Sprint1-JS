@@ -2,12 +2,13 @@
 /* creo la carta */
 export function createCard(movie) {
 
-    return `<article class="items-start border-[3px] border-black  hover:border-blue-400 h-[300px] w-[170px] rounded-xl text-xs gap-3">
-    <img class="h-[120px] w-[100%] object-cover p-3" src="${movie.image}" alt="">
+    return `<article class="flex flex-col items-center border-[3px] border-black  hover:border-blue-400 h-[300px] w-[170px] rounded-xl text-xs ">
+    <img class="h-[120px] w-[100%] object-cover p-3" src="https://moviestack.onrender.com/static/${movie.image}" alt="">
     <h2 class="font-bold text-left text-[10px]">${movie.title}</h2>
     <h3 class=" text-left text-[10px]">${movie.tagline}</h3>
     <p class="text-left text-[10px] line-clamp-5 "> Description: ${movie.overview}</p>
-    <a href="/assets/pages/details.html?id=${movie.id}" class="bg-black text-white  rounded-sm text-[10px] ">ir a detalles</a>
+    <a href="/assets/pages/details.html?id=${movie.id}" class="bg-black text-white  rounded-md text-[10px] m-[5px] w-[100px]">ir a detalles</a>
+    <button class="rounded-md  border-[1px] border-black w-[100px] favBtn" type="submit" onclick= "agregarFavoritos" id= "favBtn" >favorites</button>
     </article> `
 }
 
@@ -44,3 +45,24 @@ export function filtroPorGenero(listadoDePeliculas, generoSeleccionado){
 
 return filtroDeGenero
 }
+export function  cruzarFiltro(listaPeliculas, selector, finder, contenedor ){
+    const seleccionarGenero = selector.value
+    const seleccionarNombre = finder.value
+    
+    const resultadoGenero = seleccionarGenero !== "" ? filtroPorGenero(listaPeliculas, seleccionarGenero) : listaPeliculas
+    const resultadoNombre = seleccionarNombre !== "" ? filtrarTitulos(listaPeliculas, seleccionarNombre) : listaPeliculas
+    const resultadoFinal = resultadoGenero.filter(movie => resultadoNombre.includes(movie))
+    
+    limpiarContenedor(contenedor)
+    
+    if(resultadoFinal.length > 0) {
+    imprimirTemplate(resultadoFinal, contenedor, createCard)
+    }else{
+        contenedor.innerHTML = "No se encontraron resultados"
+    }}
+    /* limpio contenedor articulocontenedor */
+    function limpiarContenedor(contenedor) {
+        contenedor.innerHTML = ""
+    }
+
+  
